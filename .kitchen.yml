@@ -1,0 +1,30 @@
+---
+driver_plugin: vagrant
+provisioner: chef_zero
+driver_config:
+  require_chef_omnibus: true
+#  http_proxy: http://33.33.33.9:8123
+#  https_proxy: https://33.33.33.9:8123
+#  provider: lxc
+  customize:
+    memory: 2048
+
+platforms:
+- name: precise64
+  driver_config:
+    box: precise64
+    box_url: http://files.vagrantup.com/precise64.box
+#- name: precise64-lxc
+#  driver_config:
+#    box: precise64-lxc
+#    box_url: https://vagrantcloud.com/fgrehm/precise64-lxc/version/1/provider/lxc.box
+
+suites:
+- name: default
+#  encrypted_data_bag_secret_key_path: "~/.chef/encrypted_data_bag_secret"
+  run_list:
+  - recipe[roadtalk::default]
+  attributes:
+    postgresql:
+      password: 
+        postgres: "password1"
